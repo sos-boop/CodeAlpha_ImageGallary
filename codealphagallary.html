@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Gallery | CodeAlpha</title>
+    <link rel="stylesheet" href="codealphagallary.css">
+</head>
+<body>
+
+    <header class="gallery-header">
+        <h1>Selected Works</h1>
+        <p>A curated collection of architectural and minimalist photography</p>
+        
+        <!-- Filter Controls -->
+        <div class="filter-controls">
+            <button class="filter-btn active" data-filter="all">All Architecture</button>
+            <button class="filter-btn" data-filter="minimal">Minimal</button>
+            <button class="filter-btn" data-filter="brutalist">Brutalist</button>
+            <button class="filter-btn" data-filter="interior">Interiors</button>
+        </div>
+    </header>
+
+    <main class="gallery-container">
+        <!-- Gallery Grid -->
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Item 1 -->
+            <div class="gallery-item" data-category="minimal">
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Concrete Minimalist Villa" class="gallery-img">
+                    <div class="img-overlay">
+                        <span class="img-category">Minimal</span>
+                        <h3>Villa Concrete</h3>
+                    </div>
+                </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="gallery-item" data-category="brutalist">
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80" alt="Monolithic Concrete Geometric Structure" class="gallery-img">
+                    <div class="img-overlay">
+                        <span class="img-category">Brutalist</span>
+                        <h3>Lines & Shadow</h3>
+                    </div>
+                </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="gallery-item" data-category="interior">
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" alt="Minimalist Japandi Living Space" class="gallery-img">
+                    <div class="img-overlay">
+                        <span class="img-category">Interior</span>
+                        <h3>Japandi Calm</h3>
+                    </div>
+                </div>
+            </div>
+            <!-- Item 4 -->
+            <div class="gallery-item" data-category="minimal">
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80" alt="White Curved Minimalist Staircase" class="gallery-img">
+                    <div class="img-overlay">
+                        <span class="img-category">Minimal</span>
+                        <h3>The Curve</h3>
+                    </div>
+                </div>
+            </div>
+            <!-- Item 5 -->
+            <div class="gallery-item" data-category="brutalist">
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80" alt="Raw Concrete Geometric Facade" class="gallery-img">
+                    <div class="img-overlay">
+                        <span class="img-category">Brutalist</span>
+                        <h3>Raw Geometry</h3>
+                    </div>
+                </div>
+            </div>
+            <!-- Item 6 -->
+            <div class="gallery-item" data-category="interior">
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=80" alt="Monolithic Marble Kitchen Island" class="gallery-img">
+                    <div class="img-overlay">
+                        <span class="img-category">Interior</span>
+                        <h3>Monolith Kitchen</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Custom Lightbox Modal -->
+    <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog">
+        <button class="lightbox-close" aria-label="Close Lightbox">&times;</button>
+        <button class="lightbox-nav prev" aria-label="Previous Image">&#10216;</button>
+        <div class="lightbox-content">
+            <img src="" alt="" id="lightboxImg">
+            <div class="lightbox-caption" id="lightboxCaption"></div>
+        </div>
+        <button class="lightbox-nav next" aria-label="Next Image">&#10217;</button>
+    </div>
+
+    <script src="codealphagallary.js"></script>
+</body>
+</html>
