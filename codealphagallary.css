@@ -1,258 +1,265 @@
-/* Custom Design Tokens */
+/* --- Global Reset & Variables --- */
 :root {
-    --bg-color: #0b0c10;
-    --card-bg: #1f2833;
-    --text-main: #ffffff;
-    --text-muted: #c5a880;
-    --accent: #c5a880;
-    --transition-smooth: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  --primary-color: #ff4757;
+  --secondary-color: #2f3542;
+  --bg-color: #f1f2f6;
+  --card-bg: #ffffff;
+  --text-dark: #2f3542;
+  --text-light: #747d8c;
+  --border-radius: 16px;
+  --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  --shadow-light: 0 10px 20px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 20px 35px rgba(0, 0, 0, 0.12);
 }
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    background-color: var(--bg-color);
-    color: var(--text-main);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    overflow-x: hidden;
-    padding-bottom: 5rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-dark);
+  padding: 40px 20px;
+  line-height: 1.6;
 }
 
-/* Header & Filter Controls */
-.gallery-header {
-    text-align: center;
-    padding: 5rem 2rem 3rem;
+.wishlist-container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.gallery-header h1 {
-    font-size: 2.5rem;
-    font-weight: 300;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
+/* --- Header Section --- */
+.wishlist-header {
+  text-align: center;
+  margin-bottom: 40px;
 }
 
-.gallery-header p {
-    color: var(--text-muted);
-    font-size: 1rem;
-    font-weight: 300;
+.wishlist-header h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--secondary-color);
+  letter-spacing: -1px;
+  margin-bottom: 8px;
 }
 
+.wishlist-header p {
+  color: var(--text-light);
+  font-size: 1.1rem;
+}
+
+/* --- Filter Controls --- */
 .filter-controls {
-    margin-top: 3rem;
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
 }
 
 .filter-btn {
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: var(--text-main);
-    padding: 0.75rem 1.5rem;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: var(--transition-smooth);
+  background-color: var(--card-bg);
+  color: var(--text-dark);
+  border: 1px solid transparent;
+  padding: 10px 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: var(--shadow-light);
+  transition: var(--transition-smooth);
 }
 
-.filter-btn:hover, .filter-btn.active {
-    background-color: var(--text-main);
-    color: var(--bg-color);
-    border-color: var(--text-main);
+.filter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
 }
 
-/* Gallery Layout Grid */
-.gallery-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 2rem;
+.filter-btn.active {
+  background-color: var(--primary-color);
+  color: #fff;
+  box-shadow: 0 8px 15px rgba(255, 71, 87, 0.3);
 }
 
+/* --- Gallery Grid Layout --- */
 .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 2rem;
-    align-items: start;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+  position: relative;
 }
 
-/* Items and Image Handling */
+/* --- Gallery Card Structural Rules --- */
 .gallery-item {
-    break-inside: avoid;
-    opacity: 1;
-    transform: scale(1);
-    transition: transform 0.4s ease, opacity 0.4s ease;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-/* Class applied via JS when an item is filtered out */
+/* Class applied via JS when element fails dynamic filter match */
 .gallery-item.hidden {
-    display: none;
+  display: none;
 }
 
-.image-wrapper {
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    background-color: var(--card-bg);
+.card-inner {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-light);
+  transition: var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-/* Setting varied heights for a structural visual rhythm */
-.gallery-item:nth-child(2n) .image-wrapper { aspect-ratio: 4 / 5; }
-.gallery-item:nth-child(2n+1) .image-wrapper { aspect-ratio: 1 / 1; }
-.gallery-item:nth-child(3n) .image-wrapper { aspect-ratio: 16 / 10; }
-
-.gallery-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: grayscale(20%);
-    transition: var(--transition-smooth);
+/* --- Interactive Hover Effects --- */
+.card-inner:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-hover);
 }
 
-/* Overlay Design */
-.img-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to top, rgba(11, 12, 16, 0.9) 0%, rgba(11, 12, 16, 0.1) 70%);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 2rem;
-    opacity: 0;
-    transition: var(--transition-smooth);
+.image-container {
+  position: relative;
+  overflow: hidden;
+  padding-top: 65%; /* Consistent 16:10 aspect ratio */
 }
 
-.img-category {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--accent);
-    margin-bottom: 0.25rem;
-    transform: translateY(10px);
-    transition: var(--transition-smooth);
+.image-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition-smooth);
 }
 
-.img-overlay h3 {
-    font-size: 1.25rem;
-    font-weight: 400;
-    letter-spacing: 1px;
-    transform: translateY(15px);
-    transition: var(--transition-smooth);
+/* Subtle image scale on card hover */
+.card-inner:hover .image-container img {
+  transform: scale(1.08);
 }
 
-/* Desktop Hover States */
-@media (hover: hover) {
-    .image-wrapper:hover .gallery-img {
-        transform: scale(1.06);
-        filter: grayscale(0%);
-    }
-    .image-wrapper:hover .img-overlay {
-        opacity: 1;
-    }
-    .image-wrapper:hover .img-category,
-    .image-wrapper:hover .img-overlay h3 {
-        transform: translateY(0);
-    }
+/* Decorative Overlays */
+.category-badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: rgba(47, 53, 66, 0.85);
+  backdrop-filter: blur(4px);
+  color: #fff;
+  padding: 6px 14px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 30px;
+  z-index: 2;
 }
 
-/* Fullscreen Lightbox Modal */
-.lightbox {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(11, 12, 16, 0.98);
-    z-index: 2000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+.wishlist-heart-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: var(--transition-smooth);
+  z-index: 2;
 }
 
-.lightbox.active {
-    opacity: 1;
-    pointer-events: auto;
+.wishlist-heart-btn:hover {
+  transform: scale(1.15);
+  background-color: #fff;
 }
 
-.lightbox-content {
-    max-width: 85%;
-    max-height: 80vh;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.wishlist-heart-btn i {
+  color: var(--text-dark);
+  font-size: 1rem;
+  transition: color 0.2s ease;
 }
 
-#lightboxImg {
-    max-width: 100%;
-    max-height: 75vh;
-    object-fit: contain;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-    transform: scale(0.95);
-    transition: var(--transition-smooth);
+.wishlist-heart-btn.liked i {
+  color: var(--primary-color);
+  animation: heartBeat 0.3s forwards;
 }
 
-.lightbox.active #lightboxImg {
-    transform: scale(1);
+/* --- Card Content Customization --- */
+.card-info {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
-.lightbox-caption {
-    margin-top: 1.5rem;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    font-weight: 300;
-    color: var(--text-main);
-    text-align: center;
+.card-info h3 {
+  font-size: 1.3rem;
+  color: var(--secondary-color);
+  margin-bottom: 10px;
 }
 
-/* Lightbox UI Elements */
-.lightbox-close {
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
-    background: transparent;
-    border: none;
-    color: #fff;
-    font-size: 2.5rem;
-    cursor: pointer;
-    line-height: 1;
-    z-index: 2010;
+.card-info p {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  flex-grow: 1;
 }
 
-.lightbox-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: transparent;
-    border: none;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 3rem;
-    cursor: pointer;
-    padding: 2rem;
-    transition: color 0.3s ease;
-    z-index: 2010;
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #f1f2f6;
+  padding-top: 15px;
 }
 
-.lightbox-nav:hover { color: #fff; }
-.prev { left: 1rem; }
-.next { right: 1rem; }
+.location {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  font-weight: 500;
+}
 
-/* Mobile Optimizations */
-@media (max-width: 768px) {
-    .gallery-grid { grid-template-columns: 1fr; }
-    .lightbox-nav { display: none; } /* Use swipe/tap gestures on mobile */
-    .img-overlay { opacity: 1; background: linear-gradient(to top, rgba(11, 12, 16, 0.8) 0%, transparent 50%); }
-    .img-category, .img-overlay h3 { transform: translateY(0); }
+.location i {
+  color: var(--primary-color);
+  margin-right: 4px;
+}
+
+.explore-link {
+  text-decoration: none;
+  color: var(--secondary-color);
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+
+.explore-link:hover {
+  color: var(--primary-color);
+}
+
+/* Heart Button Micro-animation */
+@keyframes heartBeat {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+/* --- Responsive Layout Rule adjustments --- */
+@media (max-width: 480px) {
+  .wishlist-header h1 {
+    font-size: 2.2rem;
+  }
+  body {
+    padding: 20px 10px;
+  }
 }
